@@ -1,8 +1,9 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { quizApiSlice } from "./features/quiz/quizApiSlice";
+import { quizSlice } from "./features/quiz/quizSlice";
 
-const rootReducer = combineSlices(quizApiSlice);
+const rootReducer = combineSlices(quizApiSlice, quizSlice);
 
 export type RootState = ReturnType<typeof rootReducer>;
 
