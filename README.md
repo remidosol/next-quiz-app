@@ -3,7 +3,7 @@
 A quiz application built with **Next.js 13** using the `/app` directory structure, **TypeScript**, **Redux Toolkit**, and **RTK Query**. The app presents users with 10 multiple-choice questions, each with options A-D, and includes timers and interactive features as specified.
 
 ### ⚠ Important Note
-There is a bug after clicking `Start Quiz` button. You should go back(with back button of browser) and click the `Start Quiz` button again.
+There occurs a bug after clicking `Start Quiz` button. You should go back(with back button of browser) and click the `Start Quiz` button again.
 
 ## Table of Contents
 
