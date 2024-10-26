@@ -26,7 +26,7 @@ const QuizPage: React.FC = () => {
 
   const { data, error, isLoading } = useGetQuizQuery();
 
-  usePreventBack();
+  // usePreventBack();
 
   useEffect(() => {
     if (data && data.length > 0 && questions.length === 0) {
@@ -39,20 +39,21 @@ const QuizPage: React.FC = () => {
   }, [data, dispatch, questions.length]);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (currentQuestionIndex < questions.length) {
-      timer = setInterval(() => {
-        dispatch(decrementTime());
-      }, 1000);
-    }
-    return () => clearInterval(timer);
+    if (currentQuestionIndex >= questions.length || !currentQuestion) return;
+
+    const timer = setInterval(() => {
+      dispatch(decrementTime());
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
   }, [currentQuestionIndex, dispatch]);
 
   useEffect(() => {
     if (timeLeft === 20) {
       dispatch(setOptionClickable(true));
     }
-
     if (timeLeft === 0) {
       if (currentQuestionIndex < questions.length - 1) {
         dispatch(nextQuestion());
@@ -65,6 +66,12 @@ const QuizPage: React.FC = () => {
   const handleOptionClick = (option: string) => {
     if (isOptionClickable && !answers[currentQuestionIndex]) {
       dispatch(selectAnswer(option));
+
+      if (currentQuestionIndex < questions.length - 1) {
+        dispatch(nextQuestion());
+      } else {
+        router.push("/results");
+      }
     }
   };
 
@@ -84,6 +91,7 @@ const QuizPage: React.FC = () => {
 
   return (
     <div>
+      <h2>Question {currentQuestionIndex + 1}:</h2>
       <h2>{currentQuestion.questionText}</h2>
       <p>{isOptionClickable ? "You can select an answer now." : "Please wait..."}</p>
       <ul>

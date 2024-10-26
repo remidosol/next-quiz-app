@@ -43,6 +43,7 @@ export const quizSlice = createSlice({
     },
     decrementTime(state) {
       state.timeLeft -= 1;
+      console.log("Time decremented:", state.timeLeft);
     },
     resetQuiz() {
       return initialState;
